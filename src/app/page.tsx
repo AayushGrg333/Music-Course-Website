@@ -1,9 +1,11 @@
+import { main } from "framer-motion/client";
+import HeroSection from "@/components/herosection";
 
 export default function Home() {
-  return (
-        <h1 className="text-2xl text-center ">
-          Hello,world
-        </h1>
-  )
+    return (
+        <main className="min-h-screen
+         border-white anitaliased bg-grid-white/[0.02]">
+            <HeroSection />
+        </main>
+    );``
 }
-
