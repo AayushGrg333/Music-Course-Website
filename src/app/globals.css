@@ -19,24 +19,32 @@ body {
   background: var(--background);
   font-family: Arial, Helvetica, sans-serif;
 }
-
-
 /* Custom Scrollbar Styling */
+.scrollbar-thin {
+  overflow: auto; /* Ensure it can scroll */
+  scrollbar-width: thin; /* For Firefox */
+  scrollbar-color: transparent transparent; /* Hide scrollbar by default in Firefox */
+}
+
 .scrollbar-thin::-webkit-scrollbar {
-  width: 8px;
+  width: 8px; /* Width of the scrollbar */
+  opacity: 0; /* Start hidden */
+  transition: opacity 0.3s ease; /* Smooth transition for opacity */
+}
+
+.scrollbar-thin:hover::-webkit-scrollbar {
+  opacity: 1; /* Show scrollbar on hover */
 }
 
 .scrollbar-thin::-webkit-scrollbar-track {
-  background: transparent;
+  background: transparent; /* Track background */
 }
 
 .scrollbar-thin::-webkit-scrollbar-thumb {
-  background-color: rgba(255, 255, 255, 0.3);
-  border-radius: 4px;
+  background-color: rgba(255, 255, 255, 0.3); /* Thumb color */
+  border-radius: 4px; /* Rounded edges */
 }
 
-/* For Firefox */
-.scrollbar-thin {
-  scrollbar-width: thin;
-  scrollbar-color: rgba(255, 255, 255, 0.3) transparent;
+.scrollbar-thin:hover {
+  scrollbar-color: rgba(255, 255, 255, 0.3) transparent; /* Show scrollbar color on hover */
 }

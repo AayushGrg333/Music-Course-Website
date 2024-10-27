@@ -6,7 +6,7 @@ import { Button } from "@/components/UI/movingborder";
 const HeroSection: React.FC = function () {
     return (
         <div
-            className="h-auto md:h-[40rem] w-full items-center 
+            className="h-auto md:h-[45rem] w-full items-center 
          rounded-md flex flex-col justify-center relative overflow-hidden
          mx-auto py-15 md:py-0"
         >
