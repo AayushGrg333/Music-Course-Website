@@ -39,7 +39,7 @@ const musicSchoolContent = [
 
 const WhyChooseUs: React.FC = function(){
     return (
-        <div>
+        <div >
             <StickyScroll content={musicSchoolContent}/>
         </div>
     )
