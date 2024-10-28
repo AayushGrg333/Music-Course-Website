@@ -1,7 +1,8 @@
 import { main } from "framer-motion/client";
 import HeroSection from "@/components/herosection";
 import FeaturedCourses from "@/components/featuredCourses";
-
+import WhyChooseUs from "@/components/whyChooseUs";
+import TestimoialCards from "@/components/infiniteSection"
 
 export default function Home() {
     return (
@@ -9,6 +10,8 @@ export default function Home() {
         border-white antialiased bg-grid-white/[0.02]">
         <HeroSection />
         <FeaturedCourses />
+        <WhyChooseUs />
+        <TestimoialCards />
       </main>
     );
   }
