@@ -71,14 +71,14 @@ const UpcomingWebinars: React.FC = function () {
                     }))}
                 />
 
-                <div className="mt-10 text-center">
-                    <Link
-                        href={"/"}
-                        className="px-4 py-2 rounded border border-neutral-600 text-neutral-700 bg-white hover:bg-gray-100 transition duration-200"
-                    >
-                        View All webinars
-                    </Link>
-                </div>
+<div className="mt-20 text-center">
+                <Link
+                    href={"/courses"}
+                    className="bg-blue-950 text-white text-lg  py-4 px-6 rounded-full shadow-lg transition duration-300 ease-in-out hover:bg-slate-800 hover:shadow-xl"
+                >
+                    View All Webinars
+                </Link>
+            </div>
             </div>
         </div>
     );

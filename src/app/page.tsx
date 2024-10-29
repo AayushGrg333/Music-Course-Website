@@ -4,6 +4,8 @@ import FeaturedCourses from "@/components/featuredCourses";
 import WhyChooseUs from "@/components/whyChooseUs";
 import TestimoialCards from "@/components/infiniteSection"
 import UpcomingWebinars from "@/components/upcomingWebinars";
+import Instructures from "@/components/Instructures"
+import { Footer } from "@/components/footer";
 
 export default function Home() {
     return (
@@ -14,6 +16,8 @@ export default function Home() {
         <WhyChooseUs />
         <TestimoialCards />
         <UpcomingWebinars />
+        <Instructures />
+        <Footer />
       </main>
     );
   }
