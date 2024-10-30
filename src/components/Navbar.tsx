@@ -49,7 +49,7 @@ const Navbar: React.FC = ({ className }: { className?: string }) => {
                         </div>
                     </MenuItem>
 
-                <Link href={"/AboutUs"}>
+                <Link href={"/contactus"}>
                     <MenuItem
                         setActive={setActive}
                         active={active}
