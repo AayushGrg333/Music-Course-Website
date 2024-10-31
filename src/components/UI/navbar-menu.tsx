@@ -38,7 +38,7 @@ export const MenuItem = ({
           animate={{ opacity: 1, scale: 1, y: 0 }}
           transition={transition}
         >
-          {active === item && children &&(
+          {active === item && children && (
             <div className="absolute top-[calc(100%_+_1.2rem)] left-1/2 transform -translate-x-1/2 pt-4">
               <motion.div
                 transition={transition}
@@ -109,12 +109,19 @@ export const ProductItem = ({
   );
 };
 
-export const HoveredLink = ({ children,href, ...rest }: any) => {
+// Define a specific type for the props of HoveredLink
+type HoveredLinkProps = {
+  children: React.ReactNode;
+  href: string;
+  [key: string]: any; // For any additional props that might be passed in
+};
+
+export const HoveredLink = ({ children, href, ...rest }: HoveredLinkProps) => {
   return (
     <Link
       href={href}
       {...rest}
-      className="text-neutral-700 dark:text-neutral-200 hover:text-black "
+      className="text-neutral-700 dark:text-neutral-200 hover:text-black"
     >
       {children}
     </Link>

@@ -3,7 +3,20 @@ import { cn } from "@/Utils/cn";
 import React, { useEffect, useRef, useState } from "react";
 import { createNoise3D } from "simplex-noise";
 
-export const WavyBackground = ({
+interface WavyBackgroundProps {
+  children?: React.ReactNode; // Use React.ReactNode for children
+  className?: string;
+  containerClassName?: string;
+  colors?: string[];
+  waveWidth?: number;
+  backgroundFill?: string;
+  blur?: number;
+  speed?: "slow" | "fast";
+  waveOpacity?: number;
+  [key: string]: any; // Allow additional props
+}
+
+export const WavyBackground: React.FC<WavyBackgroundProps> = ({
   children,
   className,
   containerClassName,
@@ -14,51 +27,39 @@ export const WavyBackground = ({
   speed = "fast",
   waveOpacity = 0.5,
   ...props
-}: {
-  children?: any;
-  className?: string;
-  containerClassName?: string;
-  colors?: string[];
-  waveWidth?: number;
-  backgroundFill?: string;
-  blur?: number;
-  speed?: "slow" | "fast";
-  waveOpacity?: number;
-  [key: string]: any;
 }) => {
   const noise = createNoise3D();
   let w: number,
     h: number,
     nt: number,
-    i: number,
-    x: number,
-    ctx: any,
-    canvas: any;
-  const canvasRef = useRef<HTMLCanvasElement>(null);
+    ctx: CanvasRenderingContext2D | null;
+  const canvasRef = useRef<HTMLCanvasElement>(null); // Correctly typed
+  let animationId: number;
+
   const getSpeed = () => {
-    switch (speed) {
-      case "slow":
-        return 0.001;
-      case "fast":
-        return 0.002;
-      default:
-        return 0.001;
-    }
+    return speed === "slow" ? 0.001 : 0.002;
   };
 
   const init = () => {
-    canvas = canvasRef.current;
-    ctx = canvas.getContext("2d");
-    w = ctx.canvas.width = window.innerWidth;
-    h = ctx.canvas.height = window.innerHeight;
-    ctx.filter = `blur(${blur}px)`;
-    nt = 0;
-    window.onresize = function () {
-      w = ctx.canvas.width = window.innerWidth;
-      h = ctx.canvas.height = window.innerHeight;
-      ctx.filter = `blur(${blur}px)`;
-    };
-    render();
+    const canvas = canvasRef.current;
+    if (canvas) {
+      ctx = canvas.getContext("2d");
+      if (ctx) {
+        w = ctx.canvas.width = window.innerWidth;
+        h = ctx.canvas.height = window.innerHeight;
+        ctx.filter = `blur(${blur}px)`;
+        nt = 0;
+
+        window.onresize = () => {
+          if (ctx) {
+            w = ctx.canvas.width = window.innerWidth;
+            h = ctx.canvas.height = window.innerHeight;
+            ctx.filter = `blur(${blur}px)`;
+          }
+        };
+        render();
+      }
+    }
   };
 
   const waveColors = colors ?? [
@@ -68,23 +69,25 @@ export const WavyBackground = ({
     "#e879f9",
     "#22d3ee",
   ];
+
   const drawWave = (n: number) => {
     nt += getSpeed();
-    for (i = 0; i < n; i++) {
+    for (let i = 0; i < n; i++) {
+      if (!ctx) return; // Ensure ctx is defined before proceeding
       ctx.beginPath();
       ctx.lineWidth = waveWidth || 50;
       ctx.strokeStyle = waveColors[i % waveColors.length];
-      for (x = 0; x < w; x += 5) {
-        var y = noise(x / 800, 0.3 * i, nt) * 100;
-        ctx.lineTo(x, y + h * 0.5); // adjust for height, currently at 50% of the container
+      for (let x = 0; x < w; x += 5) {
+        const y = noise(x / 800, 0.3 * i, nt) * 100;
+        ctx.lineTo(x, y + h * 0.5);
       }
       ctx.stroke();
       ctx.closePath();
     }
   };
 
-  let animationId: number;
   const render = () => {
+    if (!ctx) return; // Ensure ctx is defined before proceeding
     ctx.fillStyle = backgroundFill || "black";
     ctx.globalAlpha = waveOpacity || 0.5;
     ctx.fillRect(0, 0, w, h);
@@ -97,11 +100,10 @@ export const WavyBackground = ({
     return () => {
       cancelAnimationFrame(animationId);
     };
-  }, []);
+  }, []); // Keep dependencies empty; animationId is handled inside the effect.
 
   const [isSafari, setIsSafari] = useState(false);
   useEffect(() => {
-    // I'm sorry but i have got to support it on safari.
     setIsSafari(
       typeof window !== "undefined" &&
         navigator.userAgent.includes("Safari") &&

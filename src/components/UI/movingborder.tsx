@@ -10,6 +10,16 @@ import {
 import { useRef } from "react";
 import { cn } from "@/Utils/cn";
 
+// Define types for otherProps to capture any additional props
+type ButtonProps = React.ComponentPropsWithoutRef<"button"> & {
+  borderRadius?: string;
+  children: React.ReactNode;
+  as?: React.ElementType; // Changed from `any` to `React.ElementType`
+  containerClassName?: string;
+  borderClassName?: string;
+  duration?: number;
+};
+
 export function Button({
   borderRadius = "1.75rem",
   children,
@@ -19,20 +29,11 @@ export function Button({
   duration,
   className,
   ...otherProps
-}: {
-  borderRadius?: string;
-  children: React.ReactNode;
-  as?: any;
-  containerClassName?: string;
-  borderClassName?: string;
-  duration?: number;
-  className?: string;
-  [key: string]: any;
-}) {
+}: ButtonProps) {
   return (
     <Component
       className={cn(
-        "bg-transparent relative text-xl  h-16 w-40 p-[1px] overflow-hidden ",
+        "bg-transparent relative text-xl h-16 w-40 p-[1px] overflow-hidden",
         containerClassName
       )}
       style={{
@@ -69,20 +70,21 @@ export function Button({
   );
 }
 
+type MovingBorderProps = {
+  children: React.ReactNode;
+  duration?: number;
+  rx?: string;
+  ry?: string;
+};
+
 export const MovingBorder = ({
   children,
   duration = 2000,
   rx,
   ry,
   ...otherProps
-}: {
-  children: React.ReactNode;
-  duration?: number;
-  rx?: string;
-  ry?: string;
-  [key: string]: any;
-}) => {
-  const pathRef = useRef<any>();
+}: MovingBorderProps) => {
+  const pathRef = useRef<SVGRectElement>(null); // Specify the type for useRef
   const progress = useMotionValue<number>(0);
 
   useAnimationFrame((time) => {
