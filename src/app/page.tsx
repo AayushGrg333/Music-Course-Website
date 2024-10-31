@@ -1,4 +1,3 @@
-import { main } from "framer-motion/client";
 import HeroSection from "@/components/herosection";
 import FeaturedCourses from "@/components/featuredCourses";
 import WhyChooseUs from "@/components/whyChooseUs";

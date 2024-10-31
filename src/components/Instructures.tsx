@@ -1,7 +1,6 @@
 "use client";
 import React from "react";
 import { WavyBackground } from "./UI/wavy-background";
-import { div } from "framer-motion/client";
 import { AnimatedTooltip } from "./UI/animated-tooltip";
 
 const instructors = [
